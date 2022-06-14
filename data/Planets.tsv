@@ -1,0 +1,5 @@
+name	color	mass	image___	zoom	radius
+Sun	#ffffff	1000	sun1.png	3	230
+Earth	#6464ff	100	Earth.png	0,5	50
+Moon	#373737	10	Moon.png	0,2	22
+Mars	#ff6400	50	Mars.png	0,4	40

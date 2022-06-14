@@ -1,0 +1,41 @@
+tag	lev			victorytime	ktime	ktime	ss	radmax												
+Level	1	field1.jpg	0,1	5000	10	100	40	30000												
+#nam	L	bod	x	y	rad	R	G	B	mass	vx	vy	freeze	img	zoom	victoryrad1	2				
+Body	1	Sun	0	0	230	255	255	255	1000	0	0	1	sun1.png	3	0	0				
+Body	1	Earth	4000	0	50	100	100	255	200	0	-0,15	0	Earth.png	0,5	0	0				
+Body	1	Moon	4600	0	22	55	55	55	10	-0,05	-0,31	0	Moon.png	0,2	0	100				
+Body	1	Mars	-7100	0	40	255	100	0	50	0	0,15	0	Mars.png	0,4	0	0				
+Ship	1	ship	4100	0	1	55	255	100	2000	0	-0,6	0	Ship0.png	0,1	0	0	engine0.png	0,2	10	0,01
+
+Level	2	field1.jpg	0,1	5000	10	100	40	30000												
+#nam	L	bod	x	y	rad	R	G	B	mass	vx	vy	freeze	img	zoom	victoryrad1	2				
+Body	2	Sun	0	0	230	255	255	255	1000	0	0	1	sun1.png	3	0	0				
+Body	2	Earth	4000	0	50	100	100	255	200	0	-0,15	0	Earth.png	0,5	0	0				
+Body	2	Moon	4600	0	22	55	55	55	10	-0,05	-0,31	0	Moon.png	0,2	0	0				
+Body	2	Mars	-7100	0	40	255	100	0	50	0	0,15	0	Mars.png	0,4	0	180				
+Ship	2	ship	4650	0	1	55	255	100	10000	0	-0,44	0	Ship.png	0,1	0	0	engine.png	0,2	10	0,005
+																				
+																				
+Level	3	field1.jpg	0,1	5000	10	100	40	30000												
+#nam	L	bod	x	y	rad	R	G	B	mass	vx	vy	freeze	img	zoom	victoryrad1	2				
+Body	3	Sun	0	0	230	255	255	255	1000	0	0	1	sun1.png	3	0	0				
+Body	3	Earth	4000	0	50	100	100	255	200	0	-0,15	0	Earth.png	0,5	0	0				
+Body	3	Moon	4600	0	22	55	55	55	10	-0,05	-0,31	0	Moon.png	0,2	0	100				
+Body	3	Mars	-7100	0	40	255	100	0	50	0	0,15	0	Mars.png	0,4	0	0				
+Ship	3	ship	-7200	0	1	55	255	100	10000	0	-0,05	0	Ship.png	0,1	0	0	engine.png	0,2	10	0,005
+
+Level	4	field1.jpg	0,1	5000	10	100	40	30000												
+#nam	L	bod	x	y	rad	R	G	B	mass	vx	vy	freeze	img	zoom	victoryrad1	2				
+Body	4	Sun	0	0	230	255	255	255	1000	0	0	1	sun1.png	3	0	0				
+Body	4	Earth	4000	0	50	100	100	255	200	0	-0,15	0	Earth.png	0,5	0	0				
+Body	4	Moon	4600	0	22	55	55	55	10	-0,05	-0,31	0	Moon.png	0,2	0	0				
+Body	4	Mars	-7100	0	40	255	100	0	50	0	0,15	0	Mars.png	0,4	100	180				
+Ship	4	ship	4650	0	1	55	255	100	20000	0	-0,44	0	Ship3.png	0,05	0	0	engine2.png	0,2	10	0,002
+
+Level	5	field1.jpg	0,1	5000	10	100	40	30000												
+#nam	L	bod	x	y	rad	R	G	B	mass	vx	vy	freeze	img	zoom	victoryrad1	2				
+Body	5	Sun	0	0	230	255	255	255	1000	0	0	1	sun1.png	3	0	0				
+Body	5	Earth	4000	0	50	100	100	255	200	0	-0,15	0	Earth.png	0,5	0	0				
+Body	5	Moon	4600	0	22	55	55	55	10	-0,05	-0,31	0	Moon.png	0,2	0	80				
+Body	5	Mars	-7100	0	40	255	100	0	50	0	0,15	0	Mars.png	0,4	0	0				
+Ship	5	ship	-7200	0	1	55	255	100	20000	0	-0,05	0	Ship3.png	0,05	0	0	engine2.png	0,2	10	0,002

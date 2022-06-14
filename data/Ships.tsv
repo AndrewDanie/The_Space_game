@@ -1,0 +1,4 @@
+name	color	mass	image___	zoom	eng_img__	zoom		accel
+Ship1	#37ff64	2000	Ship0.png	0,1	engine0.png	0,2	10	0,01
+Ship2	#37ff64	10000	Ship.png	0,1	engine.png	0,2	10	0,005
+Ship4	#37ff64	20000	Ship3.png	0,05	engine2.png	0,2	10	0,002
