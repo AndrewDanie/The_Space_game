@@ -45,6 +45,7 @@ class Game:
         while self.F_running:
             self.F_current_loop_running = True
             self.loop_set[self.current_loop].loop()
+        pygame.quit()
 
     def loop(self):
         """
