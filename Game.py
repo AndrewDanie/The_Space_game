@@ -10,6 +10,7 @@ class Game:
 
     def __init__(self, resolution, FPS):
         pygame.mixer.pre_init(44100, -16, 1, 512)
+        
         pygame.init()
 
         self.F_mixer_running = True
