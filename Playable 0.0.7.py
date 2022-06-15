@@ -42,7 +42,7 @@ gear = pygame.image.load(os.path.join('image', 'gear.png'))
 gear.convert()
 gear = pygame.transform.rotozoom(gear, 0, 0.2)
 
-Tank = pygame.image.load(os.path.join('image', 'Tank1.png'))
+Tank = pygame.image.load(os.path.join('image', 'Tank.png'))
 Tank.convert()
 Tank = pygame.transform.rotozoom(Tank, 0, 0.2)
 
