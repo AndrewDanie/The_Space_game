@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ea4518d-dbb2-4b93-a80b-4b0695b45c85" name="Changes" comment="# Перевел базу данных в формат db(SQLite3), настроил считывание данных из БД">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SPACE_GAME.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SPACE_GAME.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/codestyle.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/defaults/defaults-codestyle-0.2.0.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/defaults/defaults-encoding-0.2.0.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/defaults/defaults-vcs-0.2.0.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/defaults/defaults-workspace-0.2.0.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/encoding.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/vcs.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.spyproject/config/workspace.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes_and_Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes_and_Functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
-    </list>
+    <list default="true" id="5ea4518d-dbb2-4b93-a80b-4b0695b45c85" name="Changes" comment="Add .gitignore" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,11 +42,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "G:/Python Projects/The_Space_Game",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\79963\Documents\GitHub\SPACE_GAME\data" />
@@ -234,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650538679051</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add .gitignore">
+      <created>1655326016885</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1655326016885</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -283,6 +276,7 @@
     <MESSAGE value="# Хотфикс: теперь запускается и инициализируется без ошибок" />
     <MESSAGE value="# Перевел базу данных в формат db(SQLite3), настроил считывание данных из БД" />
     <MESSAGE value="0.0.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="# Перевел базу данных в формат db(SQLite3), настроил считывание данных из БД" />
+    <MESSAGE value="Add .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add .gitignore" />
   </component>
 </project>

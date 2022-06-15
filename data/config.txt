@@ -1,6 +1,0 @@
-Ls.tsv:
-class	name	posx	posy	vectorx	vectory
-
-Levels.tsv:
-level	image	victory_time	ktime1	ktime2	screensize	radmax	goal	vic_r_in	vic_r_out	freeze
-
