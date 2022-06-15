@@ -1,6 +1,0 @@
-level	image	victory_time	ktime1	ktime2	screensize	radmax	goal	vic_r_in	vic_r_out	freeze
-1	field1.jpg	5000	10	100	40	30000	Moon	0	100	Sun
-2	field1.jpg	5000	10	100	40	30000	Mars	0	180	Sun
-3	field1.jpg	5000	10	100	40	30000	Moon	0	100	Sun
-4	field1.jpg	5000	10	100	40	30000	Mars	100	180	Sun
-5	field1.jpg	5000	10	100	40	30000	Moon 	0	80	Sun
