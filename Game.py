@@ -47,6 +47,7 @@ class Game:
             self.loop_set[self.current_loop].loop()
         pygame.quit()
 
+
     def loop(self):
         """
         Основной игровой цикл игры

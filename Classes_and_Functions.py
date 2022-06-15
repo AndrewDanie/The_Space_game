@@ -69,7 +69,6 @@ class Grav_object():
         self.pos = (params['x'], params['y'])
         self.vector = (params['vector_x'], params['vector_y'])
         self.color = params['color']
-        self.mass = params['mass']
         self.img = imgload(params['image'])
         self.zoom = params['zoom']
 
@@ -78,6 +77,7 @@ class Planet(Grav_object):
 
     def __init__(self, params):
         Grav_object.__init__(self, params)
+        self.mass = params['mass']
         self.radius = params['radius']
 
 
@@ -85,6 +85,7 @@ class Ship(Grav_object):
 
     def __init__(self, params):
         Grav_object.__init__(self, params)
+        self.fuel_amount = params['mass']                   # Поменять название в базе данных!
         self.engine_image = imgload(params['engine_image'])
         self.IDK_what_is_it = params['IDK_what_is_it']
         self.IDK_what_is_it_2 = params['IDK_what_is_it_2']
