@@ -67,8 +67,9 @@ class Grav_object():
     def __init__(self, params):
         self.name = params['name']
         self.pos = (params['x'], params['y'])
-        self.vector = (params['vector_x'], params['vector_y'])
+        self.velocity = (params['velocity_x'], params['velocity_y'])
         self.color = params['color']
+        
         self.img = imgload(params['image'])
         self.zoom = params['zoom']
 
@@ -77,19 +78,25 @@ class Planet(Grav_object):
 
     def __init__(self, params):
         Grav_object.__init__(self, params)
-        self.mass = params['mass']
         self.radius = params['radius']
+        self.mass = params['mass']
 
 
 class Ship(Grav_object):
 
     def __init__(self, params):
         Grav_object.__init__(self, params)
-        self.fuel_amount = params['mass']                   # Поменять название в базе данных!
         self.engine_image = imgload(params['engine_image'])
         self.IDK_what_is_it = params['IDK_what_is_it']
         self.IDK_what_is_it_2 = params['IDK_what_is_it_2']
-        self.accel = params['acceleration']
+        
+        self.fuel_mass = params['fuel_mass']
+        self.mass = params['ship_mass']
+        
+        self.thrust = params['engine_thrust']
+        self.specific_impulse = params['engine_specific_impulse']
+        
+        self.acceleration = self.thrust / (self.mass + self.fuel_mass)
 
 
 class Pointer():

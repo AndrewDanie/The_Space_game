@@ -3,7 +3,7 @@ import pygame_gui
 from numpy import array, zeros
 
 import Classes_and_Functions as CF
-import Menu
+from Menu import Main_menu, Settings_menu
 
 
 class Game:
@@ -33,10 +33,12 @@ class Game:
         self.clock = pygame.time.Clock()
         self.FPS = FPS
 
-        self.menu = Menu.Menu(self)  # Главное меню игры
-        self.loop_set = {'game':self, 'menu': self.menu}
-        self.current_loop = 'menu'
-
+        self.Main_menu = Main_menu(self)  # Главное меню игры
+        self.Setting_menu = Settings_menu(self)
+        self.loop_set = {'game':self,
+                         'Main_menu': self.Main_menu,
+                         'Settings_menu': self.Setting_menu}
+        self.current_loop = 'Main_menu'
         self.current_level_number = 1
 
     def run(self):
@@ -79,7 +81,7 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.F_current_loop_running = False
-                    self.current_loop = 'menu'
+                    self.current_loop = 'Main_menu'
 
     def load_level(self, level):
         self.indent_cord = array([100, 150])  # Отступ рамки
