@@ -3,12 +3,12 @@ import pygame_gui
 from numpy import array, zeros
 
 import Classes_and_Functions as CF
-from Menu import Main_menu, Settings_menu
-
+import Menu
+from config import *
 
 class Game:
 
-    def __init__(self, resolution, FPS):
+    def __init__(self):
         pygame.mixer.pre_init(44100, -16, 1, 512)
         
         pygame.init()
@@ -20,6 +20,7 @@ class Game:
             self.F_mixer_running = False
         finally:
             print('Sound mixer running is', self.F_mixer_running)
+        pygame.mixer.music.set_volume(mixer_volume)
         self.F_running = True   # Флаг работы программы
         self.F_current_loop_running = True  # Флаг работы текущего цикл
 
@@ -33,11 +34,13 @@ class Game:
         self.clock = pygame.time.Clock()
         self.FPS = FPS
 
-        self.Main_menu = Main_menu(self)  # Главное меню игры
-        self.Setting_menu = Settings_menu(self)
+        self.Main_menu = Menu.Main_menu(self)  # Главное меню игры
+        self.Setting_menu = Menu.Settings_menu(self)
+        self.Volume_settings = Menu.Volume_settings(self)
         self.loop_set = {'game':self,
                          'Main_menu': self.Main_menu,
-                         'Settings_menu': self.Setting_menu}
+                         'Settings_menu': self.Setting_menu,
+                         'Volume_settings': self.Volume_settings}
         self.current_loop = 'Main_menu'
         self.current_level_number = 1
 
@@ -89,7 +92,6 @@ class Game:
 
         '''Загрузка и инициализация звуков'''
         self.sound_ambient = CF.musicload('Ambient1.wav')
-        pygame.mixer.music.set_volume(0.05)
         sound_of_engine = CF.mixerload('engine.wav')
         sound_of_engine.set_volume(0.01)
 
