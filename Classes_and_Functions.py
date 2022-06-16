@@ -9,7 +9,6 @@ def musicload(filename):
     pygame.mixer.music.play(-1)
     return music
 
-
 def mixerload(filename):
     return pygame.mixer.Sound(os.path.join('sounds', filename))
 

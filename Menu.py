@@ -136,7 +136,7 @@ class Settings_menu(Menu):
 class Volume_settings(Menu):
 
     def make_elements(self):
-        from config import mixer_volume
+        from config import settings
 
         top = self.game.window_center[1] - 100
         left = self.game.window_center[0] - 100
@@ -148,7 +148,7 @@ class Volume_settings(Menu):
         self.volume_slider = pygame_gui.elements.UIHorizontalSlider(
                 relative_rect=pygame.Rect(
                     (left, top + 70), (200, 30)),
-                 start_value=mixer_volume,
+                 start_value=settings['mixer_volume'],
                  value_range=(0, 1),
                  manager=self.game.manager)
         self.volume_amount_text = pygame_gui.elements.UITextBox(
@@ -176,6 +176,7 @@ class Volume_settings(Menu):
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 pygame.mixer.music.set_volume(event.value)
                 self.volume_amount_text.set_text(f'{int(pygame.mixer.music.get_volume()*100)}')
+
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.back_button:
                     self.change_menu('Settings_menu')

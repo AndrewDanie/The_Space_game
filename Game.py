@@ -4,7 +4,7 @@ from numpy import array, zeros
 
 import Classes_and_Functions as CF
 import Menu
-from config import *
+from config import settings
 
 class Game:
 
@@ -12,7 +12,7 @@ class Game:
         pygame.mixer.pre_init(44100, -16, 1, 512)
         
         pygame.init()
-
+        self.initialize_settings(settings)
         self.F_mixer_running = True
         try:
             pygame.mixer.init()
@@ -20,19 +20,17 @@ class Game:
             self.F_mixer_running = False
         finally:
             print('Sound mixer running is', self.F_mixer_running)
-        pygame.mixer.music.set_volume(mixer_volume)
+
         self.F_running = True   # Флаг работы программы
-        self.F_current_loop_running = True  # Флаг работы текущего цикл
+        self.F_current_loop_running = True  # Флаг работы текущего цикла
 
         pygame.display.set_caption('SPACE GAME')  # Название окна
-        self.resolution = array(resolution) # Разрешение экрана     # Array из Numpy для векторной работы
+        self.resolution = array(self.resolution) # Разрешение экрана     # Array из Numpy для векторной работы
         self.window_center = self.resolution // 2
-        print(self.window_center)
-        self.window = pygame.display.set_mode(resolution)
-        self.display = pygame.Surface(resolution)   # Главная отрисовываемая поверхность
-        self.manager = pygame_gui.UIManager(resolution) # Запускаем GUI-менеджер
+        self.window = pygame.display.set_mode(self.resolution)
+        self.display = pygame.Surface(self.resolution)   # Главная отрисовываемая поверхность
+        self.manager = pygame_gui.UIManager(self.resolution) # Запускаем GUI-менеджер
         self.clock = pygame.time.Clock()
-        self.FPS = FPS
 
         self.Main_menu = Menu.Main_menu(self)  # Главное меню игры
         self.Setting_menu = Menu.Settings_menu(self)
@@ -43,6 +41,11 @@ class Game:
                          'Volume_settings': self.Volume_settings}
         self.current_loop = 'Main_menu'
         self.current_level_number = 1
+
+    def initialize_settings(self, settings):
+        pygame.mixer.music.set_volume(settings['mixer_volume'])
+        self.resolution = (settings['resolution_x'], settings['resolution_y'])
+        self.FPS = settings['FPS']
 
     def run(self):
         """
