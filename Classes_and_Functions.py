@@ -1,26 +1,11 @@
 import sqlite3
-import os
+
 import pygame
-
-
-'''Упрощаем запись загружающих функций'''
-def musicload(filename):
-    music = pygame.mixer.music.load(os.path.join('sounds', filename))
-    pygame.mixer.music.play(-1)
-    return music
-
-def mixerload(filename):
-    return pygame.mixer.Sound(os.path.join('sounds', filename))
-
-
-def imgload(filename):
-    return pygame.image.load(os.path.join('image', filename)).convert()
+import Game_loop as G
 
 
 class Level:
-    """
-    Загрузка и инициализация объектов игрового уровня
-    """
+
     def __init__(self, level_number):
         """
         Определяем общие параметры уровня
@@ -34,7 +19,7 @@ class Level:
             current_level = cursor.fetchone()
 
             self.level_id = current_level['level_id']
-            self.image = imgload(current_level['image'])
+            self.image = G.imgload(current_level['image'])
             self.victory_time = current_level['victory_time']
             self.ktime_1 = current_level['ktime_1']
             self.ktime_2 = current_level['ktime_2']
@@ -69,7 +54,7 @@ class Grav_object():
         self.velocity = (params['velocity_x'], params['velocity_y'])
         self.color = params['color']
         
-        self.img = imgload(params['image'])
+        self.img = G.imgload(params['image'])
         self.zoom = params['zoom']
 
 
@@ -85,13 +70,11 @@ class Ship(Grav_object):
 
     def __init__(self, params):
         Grav_object.__init__(self, params)
-        self.engine_image = imgload(params['engine_image'])
+        self.engine_image = G.imgload(params['engine_image'])
         self.IDK_what_is_it = params['IDK_what_is_it']
         self.IDK_what_is_it_2 = params['IDK_what_is_it_2']
-        
         self.fuel_mass = params['fuel_mass']
-        self.mass = params['ship_mass']
-        
+        self.mass = params['ship_mass']  # Масса все равно большая, надо менять
         self.thrust = params['engine_thrust']
         self.specific_impulse = params['engine_specific_impulse']
         

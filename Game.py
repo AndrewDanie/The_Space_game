@@ -1,7 +1,6 @@
 import pygame
 import pygame_gui
 
-
 import Menu
 from Game_loop import Game_loop
 from config import settings
@@ -48,6 +47,7 @@ class Game:
                          'Settings_menu': self.Setting_menu,
                          'Volume_settings': self.Volume_settings}
         self.current_loop = 'Main_menu'
+        # Придумать адекватную реализацию перехода между меню
 
     def run(self):
         self.F_running = True   # Флаг работы программы

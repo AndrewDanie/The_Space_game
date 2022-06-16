@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+import os
 from numpy import array, zeros
 
 from Menu import Menu
@@ -39,8 +40,8 @@ class Game_loop(Menu):
         self.LOAD_CURRENT_LEVEL()
 
     def INIT_GAME_AUDIO(self):
-        self.sound_ambient = CF.musicload('Ambient1.wav')
-        self.sound_of_engine = CF.mixerload('engine.wav')
+        self.sound_ambient = musicload('Ambient1.wav')
+        self.sound_of_engine = mixerload('engine.wav')
         self.sound_of_engine.set_volume(0.01)
 
     def INIT_GAME_GRAPHIC(self):
@@ -48,14 +49,29 @@ class Game_loop(Menu):
         self.indent_cord = array([100, 150])  # Отступ рамки
         self.camera_cord = array([- self.resolution[0] // 2, - self.resolution[1] // 2])  # Начальное положение камеры
 
-        self.pic_frame = CF.imgload('Frame.png')
-        self.pic_gear = CF.imgload('gear.png')
-        self.pic_tank = CF.imgload('Tank.png')
+        self.pic_frame = imgload('Frame.png')
+        self.pic_gear = imgload('gear.png')
+        self.pic_tank = imgload('Tank.png')
         self.pic_gear = pygame.transform.rotozoom(self.pic_gear, 0, 0.2)
         self.pic_tank = pygame.transform.rotozoom(self.pic_tank, 0, 0.2)
 
-    def LOAD_CURRENT_LEVEL(self, level_number=1):
-        self.current_level = CF.Level(level_number)
+    def LOAD_CURRENT_LEVEL(self):
+        self.current_level = CF.Level(self.current_level_number)
         print('Level objects:')
         for obj in self.current_level.level_objects:
             print(obj.__dict__)
+
+
+def musicload(filename):
+    music = pygame.mixer.music.load(os.path.join('sounds', filename))
+    pygame.mixer.music.play(-1)
+    return music
+
+
+def mixerload(filename):
+    return pygame.mixer.Sound(os.path.join('sounds', filename))
+# Разобраться с разницей между musicload и mixerload
+
+
+def imgload(filename):
+    return pygame.image.load(os.path.join('image', filename)).convert()
