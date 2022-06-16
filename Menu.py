@@ -9,7 +9,6 @@ class Menu:
         pygame.display.set_mode(self.game.resolution)
 
     def loop(self):
-
         print(f'This is a {self.__class__}')
         self.make_elements()
 
@@ -17,9 +16,9 @@ class Menu:
             time_delta = self.game.clock.tick(60) / 1000.0
             self.check_events()
             self.game.manager.update(time_delta)
-            self.draw_screen_with_buttons()
+            self.draw_screen()
 
-    def draw_screen_with_buttons(self):
+    def draw_screen(self):
         self.game.display.fill('black')
         self.game.window.blit(self.game.display, (0, 0))
         self.game.manager.draw_ui(self.game.window)
@@ -78,7 +77,7 @@ class Main_menu(Menu):
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.start_game_button:
-                    self.change_menu('game')
+                    self.change_menu('Game')
 
                 if event.ui_element == self.settings_button:
                     self.change_menu('Settings_menu')
