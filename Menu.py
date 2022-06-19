@@ -6,7 +6,6 @@ class Menu:
 
     def __init__(self, game):
         self.game = game
-        pygame.display.set_mode(self.game.resolution)
 
     def loop(self):
         print(f'This is a {self.__class__}')

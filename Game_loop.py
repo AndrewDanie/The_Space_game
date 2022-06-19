@@ -4,7 +4,7 @@ import os
 from numpy import array, zeros
 
 from Menu import Menu
-import Classes_and_Functions as CF
+from Level import Level
 
 
 class Game_loop(Menu):
@@ -56,7 +56,7 @@ class Game_loop(Menu):
         self.pic_tank = pygame.transform.rotozoom(self.pic_tank, 0, 0.2)
 
     def LOAD_CURRENT_LEVEL(self):
-        self.current_level = CF.Level(self.current_level_number)
+        self.current_level = Level(self.current_level_number)
         print('Level objects:')
         for obj in self.current_level.level_objects:
             print(obj.__dict__)
