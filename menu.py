@@ -71,7 +71,7 @@ class Main_menu(Menu):
 
     def check_events(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
                 self.quit_the_game()
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:

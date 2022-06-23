@@ -1,8 +1,8 @@
 import pygame
 import pygame_gui
 
-import Menu
-from Game_loop import Game_loop
+import menu
+from game_loop import Game_loop
 from config import settings
 
 
@@ -38,10 +38,10 @@ class Game:
         self.FPS = settings['FPS']
 
     def init_menus(self):
-        self.Main_menu = Menu.Main_menu(self)
+        self.Main_menu = menu.Main_menu(self)
         self.Game_loop = Game_loop(self)
-        self.Setting_menu = Menu.Settings_menu(self)
-        self.Volume_settings = Menu.Volume_settings(self)
+        self.Setting_menu = menu.Settings_menu(self)
+        self.Volume_settings = menu.Volume_settings(self)
         self.loop_set = {'Game':self.Game_loop,
                          'Main_menu': self.Main_menu,
                          'Settings_menu': self.Setting_menu,

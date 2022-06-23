@@ -1,7 +1,7 @@
 import sqlite3
 
 import pygame
-import Game_loop as G
+import game_loop as G
 
 
 class Level:
@@ -46,16 +46,18 @@ class Level:
         print(f'level_{self.level_id} successfully initialised')
 
 
-class Grav_object():
+class Grav_object(pygame.sprite.Sprite):
 
     def __init__(self, params):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = G.imgload(params['image'])
+        self.image = pygame.transform.rotozoom(self.image, 0, params['zoom'])
+        self.x = params['x']
+        self.y = params['y']
+
         self.name = params['name']
-        self.pos = (params['x'], params['y'])
         self.velocity = (params['velocity_x'], params['velocity_y'])
         self.color = params['color']
-        
-        self.img = G.imgload(params['image'])
-        self.zoom = params['zoom']
 
 
 class Planet(Grav_object):
@@ -77,12 +79,12 @@ class Ship(Grav_object):
         self.mass = params['ship_mass']  # Масса все равно большая, надо менять
         self.thrust = params['engine_thrust']
         self.specific_impulse = params['engine_specific_impulse']
-        
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
 
 
 class Pointer():
 
     def __init__(self, params):
+        pygame.sprite.Sprite.__init__(self)
         self.name = params['name']
         self.pos = params['position']

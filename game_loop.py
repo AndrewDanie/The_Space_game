@@ -3,25 +3,36 @@ import pygame_gui
 import os
 from numpy import array, zeros
 
-from Menu import Menu
-from Level import Level
-
+from menu import Menu
+from level import Level
+from camera import Camera
 
 class Game_loop(Menu):
 
     def __init__(self, game):
         Menu.__init__(self, game)
         self.current_level_number = 1
+        self.window = self.game.window
 
     def loop(self):
         print(f'This is a {self.__class__}')
         self.INIT_GAME_PROCESS()
+        self.camera = Camera(self.game)
 
         while self.game.F_current_loop_running:
             time_delta = self.game.clock.tick(60) / 1000.0
             self.check_events()
             self.game.manager.update(time_delta)
             self.draw_screen()
+
+    def draw_screen(self):
+        self.game.display.fill('black')
+
+        for obj in self.current_level.level_objects:
+            self.camera.draw(obj)
+
+        self.game.manager.draw_ui(self.game.window)
+        pygame.display.update()
 
     def check_events(self):
         for event in pygame.event.get():
@@ -74,4 +85,4 @@ def mixerload(filename):
 
 
 def imgload(filename):
-    return pygame.image.load(os.path.join('image', filename)).convert()
+    return pygame.image.load(os.path.join('image', filename)).convert_alpha()
