@@ -18,7 +18,7 @@ class Menu:
             self.draw_screen()
 
     def draw_screen(self):
-        self.game.display.fill('black')
+        self.game.window.fill('black')
         self.game.window.blit(self.game.display, (0, 0))
         self.game.manager.draw_ui(self.game.window)
         pygame.display.update()

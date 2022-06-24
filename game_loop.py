@@ -7,6 +7,7 @@ from menu import Menu
 from level import Level
 from camera import Camera
 
+
 class Game_loop(Menu):
 
     def __init__(self, game):
@@ -26,15 +27,14 @@ class Game_loop(Menu):
             self.draw_screen()
 
     def draw_screen(self):
-        self.game.display.fill('black')
-
-        for obj in self.current_level.level_objects:
-            self.camera.draw(obj)
-
+        self.game.window.fill('black')
+        self.camera.draw_level_objects()
         self.game.manager.draw_ui(self.game.window)
         pygame.display.update()
 
     def check_events(self):
+
+        self.camera.check_events()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit_the_game()
@@ -43,6 +43,7 @@ class Game_loop(Menu):
                 if event.key == pygame.K_ESCAPE:
                     self.change_menu('Main_menu')
 
+            self.camera.check_events(event)
             self.game.manager.process_events(event)  # Обработка событий GUI
 
     def INIT_GAME_PROCESS(self):

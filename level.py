@@ -51,6 +51,7 @@ class Grav_object(pygame.sprite.Sprite):
     def __init__(self, params):
         pygame.sprite.Sprite.__init__(self)
         self.image = G.imgload(params['image'])
+        print(params['zoom'])
         self.image = pygame.transform.rotozoom(self.image, 0, params['zoom'])
         self.x = params['x']
         self.y = params['y']
@@ -82,7 +83,7 @@ class Ship(Grav_object):
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
 
 
-class Pointer():
+class Pointer(pygame.sprite.Sprite):
 
     def __init__(self, params):
         pygame.sprite.Sprite.__init__(self)
