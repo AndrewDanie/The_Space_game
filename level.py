@@ -50,15 +50,20 @@ class Grav_object(pygame.sprite.Sprite):
 
     def __init__(self, params):
         pygame.sprite.Sprite.__init__(self)
-        self.image = G.imgload(params['image'])
-        print(params['zoom'])
-        self.image = pygame.transform.rotozoom(self.image, 0, params['zoom'])
+        self.image_data = G.imgload(params['image'])
+        self.image = self.image_data
+        self.image_width = params['img_width']
+        self.image_height = params['img_height']
+        self.scale_image()
+
         self.x = params['x']
         self.y = params['y']
-
         self.name = params['name']
         self.velocity = (params['velocity_x'], params['velocity_y'])
         self.color = params['color']
+
+    def scale_image(self):
+        self.image = pygame.transform.scale(self.image_data, (self.image_width, self.image_height))
 
 
 class Planet(Grav_object):

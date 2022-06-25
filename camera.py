@@ -61,13 +61,17 @@ class Camera:
         if self.zoom > 0.03:
             self.zoom *= self.zoom_out_factor
             for obj in self.level_objects:
-                obj.image = pygame.transform.rotozoom(obj.image, 0, self.zoom_out_factor)
+                obj.image_width *= self.zoom_out_factor
+                obj.image_height *= self.zoom_out_factor
+                obj.scale_image()
 
     def zoom_in(self):
         if self.zoom < 5:
             self.zoom *= self.zoom_in_factor
             for obj in self.level_objects:
-                obj.image = pygame.transform.rotozoom(obj.image, 0, self.zoom_in_factor)
+                obj.image_width *= self.zoom_in_factor
+                obj.image_height *= self.zoom_in_factor
+                obj.scale_image()
 
     def _move_right(self):
         self.free_cam_x -= 10
