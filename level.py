@@ -59,11 +59,14 @@ class Grav_object(pygame.sprite.Sprite):
         self.x = params['x']
         self.y = params['y']
         self.name = params['name']
-        self.velocity = (params['velocity_x'], params['velocity_y'])
+        self.velocity_x = 0 # Для тестов со статическими планетами
+        self.velocity_y = 0
+        # self.velocity_x = params['velocity_x']
+        # self.velocity_y = params['velocity_y']
         self.color = params['color']
 
     def scale_image(self):
-        self.image = pygame.transform.scale(self.image_data, (self.image_width, self.image_height))
+        self.image = pygame.transform.smoothscale(self.image_data, (self.image_width, self.image_height))
 
 
 class Planet(Grav_object):
@@ -83,10 +86,11 @@ class Ship(Grav_object):
         self.IDK_what_is_it_2 = params['IDK_what_is_it_2']
         self.fuel_mass = params['fuel_mass']
         self.mass = params['ship_mass']  # Масса все равно большая, надо менять
+
         self.thrust = params['engine_thrust']
         self.specific_impulse = params['engine_specific_impulse']
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
-
+        self.thrust /= 100000
 
 class Pointer(pygame.sprite.Sprite):
 

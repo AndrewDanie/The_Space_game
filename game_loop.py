@@ -6,7 +6,7 @@ from numpy import array, zeros
 from menu import Menu
 from level import Level
 from camera import Camera
-
+from  game_logic import Game_logic
 
 class Game_loop(Menu):
 
@@ -19,10 +19,12 @@ class Game_loop(Menu):
         print(f'This is a {self.__class__}')
         self.INIT_GAME_PROCESS()
         self.camera = Camera(self.game)
+        self.logic = Game_logic(self.current_level.level_objects)
 
         while self.game.F_current_loop_running:
             time_delta = self.game.clock.tick(60) / 1000.0
             self.check_events()
+            self.logic.do_tick_logic()
             self.game.manager.update(time_delta)
             self.draw_screen()
 
@@ -33,8 +35,8 @@ class Game_loop(Menu):
         pygame.display.update()
 
     def check_events(self):
-
         self.camera.check_events()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit_the_game()
@@ -43,6 +45,7 @@ class Game_loop(Menu):
                 if event.key == pygame.K_ESCAPE:
                     self.change_menu('Main_menu')
 
+            self.logic.check_events(event)
             self.camera.check_events(event)
             self.game.manager.process_events(event)  # Обработка событий GUI
 
