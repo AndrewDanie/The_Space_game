@@ -27,11 +27,9 @@ class Game_logic:
     def calc_velocity_vector(self, mouse_target):
         x = self.window_center_x - mouse_target[0]
         y = self.window_center_y - mouse_target[1]
-        print(x, y)
         k = (x**2 + y**2)**0.5 / self.ship.thrust
         self.ship.velocity_x -= x / k
         self.ship.velocity_y -= y / k
-
 
     def move_objects(self):
         for obj in self.objects:
