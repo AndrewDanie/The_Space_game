@@ -92,9 +92,17 @@ class Ship(Grav_object):
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
         self.thrust /= 100000
 
+
 class Pointer(pygame.sprite.Sprite):
 
     def __init__(self, params):
         pygame.sprite.Sprite.__init__(self)
         self.name = params['name']
         self.pos = params['position']
+
+
+class Static_object(pygame.sprite.Sprite):
+
+    def __init__(self, img_path):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = G.imgload(img_path)

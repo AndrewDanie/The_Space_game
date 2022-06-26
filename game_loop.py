@@ -3,6 +3,7 @@ import pygame_gui
 import os
 from numpy import array, zeros
 
+import level
 from menu import Menu
 from level import Level
 from camera import Camera
@@ -17,7 +18,7 @@ class Game_loop(Menu):
 
     def loop(self):
         print(f'This is a {self.__class__}')
-        self.INIT_GAME_PROCESS()
+        self.__INIT_GAME_PROCESS()
         self.camera = Camera(self.game)
         self.logic = Game_logic(self.current_level.level_objects)
 
@@ -30,7 +31,9 @@ class Game_loop(Menu):
 
     def draw_screen(self):
         self.game.window.fill('black')
+        self.__draw_background()
         self.camera.draw_level_objects()
+        self.__draw_static_pics()
         self.game.manager.draw_ui(self.game.window)
         pygame.display.update()
 
@@ -49,32 +52,45 @@ class Game_loop(Menu):
             self.camera.check_events(event)
             self.game.manager.process_events(event)  # Обработка событий GUI
 
-    def INIT_GAME_PROCESS(self):
-        self.INIT_GAME_AUDIO()
-        self.INIT_GAME_GRAPHIC()
-        self.LOAD_CURRENT_LEVEL()
+    def __INIT_GAME_PROCESS(self):
+        self.__LOAD_GAME_AUDIO()
+        self.__LOAD_GAME_GRAPHIC()
+        self.__LOAD_CURRENT_LEVEL()
 
-    def INIT_GAME_AUDIO(self):
-        self.sound_ambient = musicload('Ambient1.wav')
+    def __LOAD_GAME_AUDIO(self):
+        self.sound_ambient = mixerload('Ambient1.wav')
         self.sound_of_engine = mixerload('engine.wav')
         self.sound_of_engine.set_volume(0.01)
 
-    def INIT_GAME_GRAPHIC(self):
+    def __LOAD_GAME_GRAPHIC(self):
         self.resolution = array(self.game.resolution)
         self.indent_cord = array([100, 150])  # Отступ рамки
         self.camera_cord = array([- self.resolution[0] // 2, - self.resolution[1] // 2])  # Начальное положение камеры
 
-        self.pic_frame = imgload('Frame.png')
-        self.pic_gear = imgload('gear.png')
-        self.pic_tank = imgload('Tank.png')
-        self.pic_gear = pygame.transform.rotozoom(self.pic_gear, 0, 0.2)
-        self.pic_tank = pygame.transform.rotozoom(self.pic_tank, 0, 0.2)
+        self.pic_frame = level.Static_object('Frame.png')
+        self.pic_gear = level.Static_object('gear.png')
+        self.pic_tank = level.Static_object('Tank.png')
+        self.pic_background = level.Static_object('field_1.jpg')
+        self.pic_gear.image = pygame.transform.rotozoom(self.pic_gear.image, 0, 0.4)
+        self.pic_tank.image = pygame.transform.rotozoom(self.pic_tank.image, 0, 0.2)
 
-    def LOAD_CURRENT_LEVEL(self):
+    def __LOAD_CURRENT_LEVEL(self):
         self.current_level = Level(self.current_level_number)
         print('Level objects:')
         for obj in self.current_level.level_objects:
             print(obj.__dict__)
+
+    def __draw_background(self):
+        self.__draw_object(self.pic_background, self.game.window_center)
+
+    def __draw_static_pics(self):
+        self.__draw_object(self.pic_frame, self.game.window_center)
+        self.__draw_object(self.pic_gear, self.game.resolution)
+        self.__draw_object(self.pic_tank, (35, self.game.resolution[1]-115))
+
+    def __draw_object(self, obj, pos: tuple):
+        obj.rect = obj.image.get_rect(center=pos)
+        self.window.blit(obj.image, obj.rect)
 
 
 def musicload(filename):
