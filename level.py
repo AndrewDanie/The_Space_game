@@ -103,6 +103,6 @@ class Pointer(pygame.sprite.Sprite):
 
 class Static_object(pygame.sprite.Sprite):
 
-    def __init__(self, img_path):
+    def __init__(self, filename):
         pygame.sprite.Sprite.__init__(self)
-        self.image = G.imgload(img_path)
+        self.image = G.imgload(filename)

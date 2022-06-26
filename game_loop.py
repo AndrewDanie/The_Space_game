@@ -21,21 +21,15 @@ class Game_loop(Menu):
         self.__INIT_GAME_PROCESS()
         self.camera = Camera(self.game)
         self.logic = Game_logic(self.current_level.level_objects)
+        self.F_pause = False
 
         while self.game.F_current_loop_running:
             time_delta = self.game.clock.tick(60) / 1000.0
             self.check_events()
-            self.logic.do_tick_logic()
-            self.game.manager.update(time_delta)
+            if not(self.F_pause):
+                self.logic.do_tick_logic()
             self.draw_screen()
-
-    def draw_screen(self):
-        self.game.window.fill('black')
-        self.__draw_background()
-        self.camera.draw_level_objects()
-        self.__draw_static_pics()
-        self.game.manager.draw_ui(self.game.window)
-        pygame.display.update()
+            self.game.manager.update(time_delta)
 
     def check_events(self):
         self.camera.check_events()
@@ -47,7 +41,9 @@ class Game_loop(Menu):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.change_menu('Main_menu')
-
+                if event.key == pygame.K_SPACE:
+                    self.F_pause = not(self.F_pause)
+                    print(f'Pause is {self.F_pause}')
             self.logic.check_events(event)
             self.camera.check_events(event)
             self.game.manager.process_events(event)  # Обработка событий GUI
@@ -79,6 +75,13 @@ class Game_loop(Menu):
         print('Level objects:')
         for obj in self.current_level.level_objects:
             print(obj.__dict__)
+
+    def draw_screen(self):
+        self.__draw_background()
+        self.camera.draw_level_objects()
+        self.__draw_static_pics()
+        self.game.manager.draw_ui(self.game.window)
+        pygame.display.update()
 
     def __draw_background(self):
         self.__draw_object(self.pic_background, self.game.window_center)
