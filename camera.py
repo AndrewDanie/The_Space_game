@@ -25,8 +25,8 @@ class Camera:
             if self.cam_mode == 0:
                 self.focus_x = self.focus_ship.x
                 self.focus_y = self.focus_ship.y
-            x = self.CENTER_X + self.free_cam_x + (obj.x - self.focus_x) * self.zoom
-            y = self.CENTER_Y + self.free_cam_y + (obj.y - self.focus_y) * self.zoom
+            x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
+            y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
             obj.rect = obj.image.get_rect(center=(x,y))
             self.window.blit(obj.image, obj.rect)
 

@@ -3,11 +3,11 @@ import pygame_gui
 import os
 from numpy import array, zeros
 
-import level
 from menu import Menu
-from level import Level
+from level_objects import Level, Static_object
 from camera import Camera
 from game_logic import Game_logic
+
 
 class Game_loop(Menu):
 
@@ -24,7 +24,7 @@ class Game_loop(Menu):
         self.F_pause = False
 
         while self.game.F_current_loop_running:
-            time_delta = self.game.clock.tick(60) / 1000.0
+            time_delta = self.game.clock.tick(self.game.FPS) / 1000.0
             self.check_events()
             if not(self.F_pause):
                 self.logic.do_tick_logic()
@@ -63,10 +63,10 @@ class Game_loop(Menu):
         self.indent_cord = array([100, 150])  # Отступ рамки
         self.camera_cord = array([- self.resolution[0] // 2, - self.resolution[1] // 2])  # Начальное положение камеры
 
-        self.pic_frame = level.Static_object('Frame.png')
-        self.pic_gear = level.Static_object('gear.png')
-        self.pic_tank = level.Static_object('Tank.png')
-        self.pic_background = level.Static_object('field_1.jpg')
+        self.pic_frame = Static_object('Frame.png')
+        self.pic_gear = Static_object('gear.png')
+        self.pic_tank = Static_object('Tank.png')
+        self.pic_background = Static_object('field_1.jpg')
         self.pic_gear.image = pygame.transform.rotozoom(self.pic_gear.image, 0, 0.4)
         self.pic_tank.image = pygame.transform.rotozoom(self.pic_tank.image, 0, 0.2)
 
