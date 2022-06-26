@@ -30,6 +30,7 @@ class Level:
             self.victory_rad_out = current_level['victory_rad_out']
 
             self.level_objects = []
+            self.level_ships = []
             '''Загружаем объекты уровня'''
             '''Добавляем Солнце и планеты'''
             PlanetsTable = cursor.execute(f'SELECT * FROM planets JOIN level_{level_number} USING(name)')
@@ -41,8 +42,9 @@ class Level:
             ShipsTable = cursor.execute(f'SELECT * FROM ships JOIN level_{level_number} USING(name)')
             for params in ShipsTable:
                 ship = Ship(params)
-                self.level_objects.append(ship)
-
+                #self.level_objects.append(ship)
+                self.level_ships.append(ship)
+                print('add_ship')
         print(f'level_{self.level_id} successfully initialised')
 
 

@@ -7,7 +7,7 @@ import level
 from menu import Menu
 from level import Level
 from camera import Camera
-from  game_logic import Game_logic
+from game_logic import Game_logic
 
 class Game_loop(Menu):
 
@@ -20,7 +20,7 @@ class Game_loop(Menu):
         print(f'This is a {self.__class__}')
         self.__INIT_GAME_PROCESS()
         self.camera = Camera(self.game)
-        self.logic = Game_logic(self.current_level.level_objects)
+        self.logic = Game_logic(self.current_level.level_objects, self.current_level.level_ships)
         self.F_pause = False
 
         while self.game.F_current_loop_running:

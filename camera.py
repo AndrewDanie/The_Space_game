@@ -13,14 +13,15 @@ class Camera:
 
         self.cam_mode = 0
         self.level_objects = game.Game_loop.current_level.level_objects
+        self.level_ships = game.Game_loop.current_level.level_ships
 
-        self.focus_ship = self.level_objects[4]
+        self.focus_ship = self.level_ships[0]
         self.focus_x = self.focus_ship.x
         self.focus_y = self.focus_ship.y
         self.focus_to_the_ship()
 
     def draw_level_objects(self):
-        for obj in self.level_objects:
+        for obj in (self.level_objects + self.level_ships):
             if self.cam_mode == 0:
                 self.focus_x = self.focus_ship.x
                 self.focus_y = self.focus_ship.y
