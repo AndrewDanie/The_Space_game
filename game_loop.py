@@ -3,50 +3,50 @@ import pygame_gui
 import os
 from numpy import array, zeros
 
-from menu import Menu
+from abstract_menu import Menu
 from level_objects import Level, Static_object
 from camera import Camera
 from game_logic import Game_logic
-
+from init import *
 
 class Game_loop(Menu):
 
-    def __init__(self, game):
-        Menu.__init__(self, game)
+    def __init__(self):
+        Menu.__init__(self)
         self.current_level_number = 1
-        self.window = self.game.window
 
     def loop(self):
         print(f'This is a {self.__class__}')
         self.__INIT_GAME_PROCESS()
-        self.camera = Camera(self.game)
+        self.camera = Camera(self)
         self.logic = Game_logic(self.current_level.level_objects, self.current_level.level_ships)
         self.F_pause = False
 
-        while self.game.F_current_loop_running:
-            time_delta = self.game.clock.tick(self.game.FPS) / 1000.0
+        while self.F_current_loop_running:
+            time_delta = clock.tick(FPS) / 1000.0
             self.check_events()
             if not(self.F_pause):
                 self.logic.do_tick_logic()
             self.draw_screen()
-            self.game.manager.update(time_delta)
+            manager.update(time_delta)
 
     def check_events(self):
         self.camera.check_events()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.quit_the_game()
+                self.change_menu()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.change_menu('Main_menu')
+                    self.new_loop = Main_menu(self.game)
+                    self.change_menu()
                 if event.key == pygame.K_SPACE:
                     self.F_pause = not(self.F_pause)
                     print(f'Pause is {self.F_pause}')
             self.logic.check_events(event)
             self.camera.check_events(event)
-            self.game.manager.process_events(event)  # Обработка событий GUI
+            manager.process_events(event)  # Обработка событий GUI
 
     def __INIT_GAME_PROCESS(self):
         self.__LOAD_GAME_AUDIO()
@@ -59,7 +59,7 @@ class Game_loop(Menu):
         self.sound_of_engine.set_volume(0.01)
 
     def __LOAD_GAME_GRAPHIC(self):
-        self.resolution = array(self.game.resolution)
+        self.resolution = array(resolution)
         self.indent_cord = array([100, 150])  # Отступ рамки
         self.camera_cord = array([- self.resolution[0] // 2, - self.resolution[1] // 2])  # Начальное положение камеры
 
@@ -80,20 +80,20 @@ class Game_loop(Menu):
         self.__draw_background()
         self.camera.draw_level_objects()
         self.__draw_static_pics()
-        self.game.manager.draw_ui(self.game.window)
+        manager.draw_ui(window)
         pygame.display.update()
 
     def __draw_background(self):
-        self.__draw_object(self.pic_background, self.game.window_center)
+        self.__draw_object(self.pic_background, window_center)
 
     def __draw_static_pics(self):
-        self.__draw_object(self.pic_frame, self.game.window_center)
-        self.__draw_object(self.pic_gear, self.game.resolution)
-        self.__draw_object(self.pic_tank, (35, self.game.resolution[1]-115))
+        self.__draw_object(self.pic_frame, window_center)
+        self.__draw_object(self.pic_gear, resolution)
+        self.__draw_object(self.pic_tank, (35, resolution[1]-115))
 
     def __draw_object(self, obj, pos: tuple):
         obj.rect = obj.image.get_rect(center=pos)
-        self.window.blit(obj.image, obj.rect)
+        window.blit(obj.image, obj.rect)
 
 
 def musicload(filename):

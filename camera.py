@@ -1,19 +1,18 @@
 import pygame
-
+from init import *
 class Camera:
 
-    def __init__(self, game):
-        self.window = game.window
-        self.CENTER_X = game.window_center[0]
-        self.CENTER_Y = game.window_center[1]
+    def __init__(self, game_loop):
+        self.CENTER_X = window_center[0]
+        self.CENTER_Y = window_center[1]
 
         self.zoom = 1.0
         self.zoom_out_factor = 1 - 0.03
         self.zoom_in_factor = 1 + 0.03
 
         self.cam_mode = 0
-        self.level_objects = game.Game_loop.current_level.level_objects
-        self.level_ships = game.Game_loop.current_level.level_ships
+        self.level_objects = game_loop.current_level.level_objects
+        self.level_ships = game_loop.current_level.level_ships
 
         self.focus_ship = self.level_ships[0]
         self.focus_x = self.focus_ship.x
@@ -28,7 +27,7 @@ class Camera:
             x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
             y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
             obj.rect = obj.image.get_rect(center=(x,y))
-            self.window.blit(obj.image, obj.rect)
+            window.blit(obj.image, obj.rect)
 
     def check_events(self, event=None):
         if event is not None:

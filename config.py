@@ -1,14 +1,4 @@
-settings = {}
-with open('config.info') as config_file:
-    for parameter in config_file.readlines():
-        parameter = parameter.strip()
-        key, value = parameter.split(sep='=')
-        try:
-            value = int(value)
-        except:
-            try:
-                value = float(value)
-            finally:
-                pass
-        finally:
-            settings[key] = value
+mixer_volume = 0.05
+resolution_x = 1000
+resolution_y = 580
+FPS = 60

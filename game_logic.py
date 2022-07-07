@@ -1,5 +1,5 @@
 import pygame
-from config import settings
+from config import *
 
 class Game_logic:
 
@@ -7,8 +7,8 @@ class Game_logic:
         self.objects = level_objects
         self.ships = level_ships
         self.ship = level_ships[0]
-        self.window_center_x = settings['resolution_x'] // 2
-        self.window_center_y = settings['resolution_y'] // 2
+        self.window_center_x = resolution_x // 2
+        self.window_center_y = resolution_y // 2
 
     def check_events(self, event):
         #pressed = pygame.mouse.get_pressed()
