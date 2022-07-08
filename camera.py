@@ -1,5 +1,7 @@
 import pygame
 from init import *
+
+
 class Camera:
 
     def __init__(self, game_loop):

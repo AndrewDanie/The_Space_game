@@ -1,8 +1,7 @@
+import os
 import sqlite3
-
+from init import imgload
 import pygame
-import game_loop as G
-
 
 class Level:
 
@@ -19,7 +18,7 @@ class Level:
             current_level = cursor.fetchone()
 
             self.level_id = current_level['level_id']
-            self.image = G.imgload(current_level['image'])
+            self.image = imgload(current_level['image'])
             self.victory_time = current_level['victory_time']
             self.ktime_1 = current_level['ktime_1']
             self.ktime_2 = current_level['ktime_2']
@@ -45,14 +44,14 @@ class Level:
                 #self.level_objects.append(ship)
                 self.level_ships.append(ship)
                 print('add_ship')
-        print(f'level_{self.level_id} successfully initialised')
+        print(f'level_{self.level_id} successfully loaded')
 
 
 class Grav_object(pygame.sprite.Sprite):
 
     def __init__(self, params):
         pygame.sprite.Sprite.__init__(self)
-        self.image_data = G.imgload(params['image'])
+        self.image_data = imgload(params['image'])
         self.image = self.image_data
         self.image_width = params['img_width']
         self.image_height = params['img_height']
@@ -83,7 +82,7 @@ class Ship(Grav_object):
 
     def __init__(self, params):
         Grav_object.__init__(self, params)
-        self.engine_image = G.imgload(params['engine_image'])
+        self.engine_image = imgload(params['engine_image'])
         self.IDK_what_is_it = params['IDK_what_is_it']
         self.IDK_what_is_it_2 = params['IDK_what_is_it_2']
         self.fuel_mass = params['fuel_mass']
@@ -107,4 +106,4 @@ class Static_object(pygame.sprite.Sprite):
 
     def __init__(self, filename):
         pygame.sprite.Sprite.__init__(self)
-        self.image = G.imgload(filename)
+        self.image = imgload(filename)

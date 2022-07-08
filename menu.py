@@ -1,10 +1,61 @@
 from init import *
-
-from game_loop import Game_loop
 from abstract_menu import Menu
+from game_process import Game_process
 
 
-class Main_menu(Menu):
+class Game(Menu):
+
+    def loop(self):
+        print(f'This is a {self.__class__}')
+        self.game_process = Game_process()
+        self.F_pause = False
+        while self.F_current_loop_running:
+            time_delta = clock.tick(FPS) / 1000.0
+            self.check_events()
+            if not(self.F_pause):
+                self.game_process.logic.do_tick_logic()
+            self.draw_screen()
+            manager.update(time_delta)
+
+    def check_events(self):
+        self.game_process.camera.check_events()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.change_menu()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.new_loop = Main()
+                    self.change_menu()
+                if event.key == pygame.K_SPACE:
+                    self.F_pause = not(self.F_pause)
+                    print(f'Pause is {self.F_pause}')
+            self.game_process.logic.check_events(event)
+            self.game_process.camera.check_events(event)
+            manager.process_events(event)  # Обработка событий GUI
+
+    def draw_screen(self):
+        self.__draw_background()
+        self.game_process.camera.draw_level_objects()
+        self.__draw_static_pics()
+        manager.draw_ui(window)
+        pygame.display.update()
+
+    def __draw_background(self):
+        self.__draw_object(self.game_process.pic_background, window_center)
+
+    def __draw_static_pics(self):
+        self.__draw_object(self.game_process.pic_frame, window_center)
+        self.__draw_object(self.game_process.pic_gear, resolution)
+        self.__draw_object(self.game_process.pic_tank, (35, resolution[1]-115))
+
+    def __draw_object(self, obj, pos: tuple):
+        obj.rect = obj.image.get_rect(center=pos)
+        window.blit(obj.image, obj.rect)
+
+
+class Main(Menu):
 
     def make_elements(self):
         top = window_center[1] - 100
@@ -37,12 +88,12 @@ class Main_menu(Menu):
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.start_game_button:
-                    self.new_loop = Game_loop()
+                    self.new_loop = Game()
                     self.change_menu()
 
 
                 if event.ui_element == self.settings_button:
-                    self.new_loop = Settings_menu()
+                    self.new_loop = Settings()
                     self.change_menu()
 
 
@@ -52,7 +103,7 @@ class Main_menu(Menu):
             manager.process_events(event)  # Обработка событий GUI
 
 
-class Settings_menu(Menu):
+class Settings(Menu):
 
     def make_elements(self):
         top = window_center[1] - 100
@@ -93,7 +144,7 @@ class Settings_menu(Menu):
                     self.change_menu()
 
                 if event.ui_element == self.back_button:
-                    self.new_loop = Main_menu()
+                    self.new_loop = Main()
                     self.change_menu()
 
             manager.process_events(event)
@@ -145,7 +196,7 @@ class Volume_settings(Menu):
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.back_button:
-                    self.new_loop = Settings_menu()
+                    self.new_loop = Settings()
                     self.change_menu()
 
             manager.process_events(event)
