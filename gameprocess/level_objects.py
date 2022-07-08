@@ -9,7 +9,7 @@ class Level:
         """
         Определяем общие параметры уровня
         """
-        with sqlite3.connect('../data/database.db') as db:  # Подключаем базу даных
+        with sqlite3.connect('data/database.db') as db:  # Подключаем базу даных
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
 

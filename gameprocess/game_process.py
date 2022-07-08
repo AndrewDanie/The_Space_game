@@ -1,9 +1,9 @@
 from numpy import array, zeros
 from game_init import *
 
-from camera import Camera
-from game_logic import Game_logic
-from level_objects import Level, Static_object
+from gameprocess.camera import Camera
+from gameprocess.game_logic import Game_logic
+from gameprocess.level_objects import Level, Static_object
 
 
 class Game_process():
