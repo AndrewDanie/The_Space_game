@@ -28,6 +28,9 @@ class Game_logic:
     def gravitate(self, first_obj, second_obj):
         pass
 
+    def check_collisions(self):
+        pass
+
     def calc_velocity_vector(self, mouse_target):
         x = self.window_center_x - mouse_target[0]
         y = self.window_center_y - mouse_target[1]
@@ -35,12 +38,10 @@ class Game_logic:
         k = 100 / self.ship.thrust # пока не нормируем
         try:
             self.ship.velocity_x -= x / k
-        except (ZeroDivisionError):
-            pass
-        try:
             self.ship.velocity_y -= y / k
-        except (ZeroDivisionError):
-            pass
+        except:
+            raise ZeroDivisionError
+
 
     def move_objects(self):
         for obj in self.objects + self.ships:

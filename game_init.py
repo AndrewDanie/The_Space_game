@@ -29,17 +29,15 @@ manager = pygame_gui.UIManager(resolution)  # Запускаем GUI-менед�
 
 
 def musicload(filename):
-    music = pygame.mixer.music.load(os.path.join('sounds', filename))
+    music = pygame.mixer.music.load(os.path.join('data/sounds', filename))
     pygame.mixer.music.play(-1)
     return music
 
 
 def mixerload(filename):
-    return pygame.mixer.Sound(os.path.join('sounds', filename))
+    return pygame.mixer.Sound(os.path.join('data/sounds', filename))
 # Разобраться с разницей между musicload и mixerload
 
 
 def imgload(filename):
-    return pygame.image.load(os.path.join('image', filename)).convert_alpha()
-
-
+    return pygame.image.load(os.path.join('data/image', filename)).convert_alpha()

@@ -1,7 +1,7 @@
-import os
 import sqlite3
-from init import imgload
+from game_init import imgload
 import pygame
+
 
 class Level:
 
@@ -9,7 +9,7 @@ class Level:
         """
         Определяем общие параметры уровня
         """
-        with sqlite3.connect('data/database.db') as db:  # Подключаем базу даных
+        with sqlite3.connect('../data/database.db') as db:  # Подключаем базу даных
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
 

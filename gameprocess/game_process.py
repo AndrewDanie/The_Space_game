@@ -1,5 +1,5 @@
 from numpy import array, zeros
-from init import *
+from game_init import *
 
 from camera import Camera
 from game_logic import Game_logic
@@ -33,10 +33,3 @@ class Game_process():
         self.pic_background = Static_object('field_1.jpg')
         self.pic_gear.image = pygame.transform.rotozoom(self.pic_gear.image, 0, 0.4)
         self.pic_tank.image = pygame.transform.rotozoom(self.pic_tank.image, 0, 0.2)
-
-
-
-
-
-
-
