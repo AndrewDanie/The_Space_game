@@ -1,5 +1,8 @@
 import pygame
 from config import *
+import math
+
+G = 0.2
 
 class Game_logic:
 
@@ -9,7 +12,11 @@ class Game_logic:
         self.ship = level_ships[0]
         self.window_center_x = resolution_x // 2
         self.window_center_y = resolution_y // 2
+        self.deltaTime = 1
 
+        for obj in (self.objects + self.ships):
+            obj.accel_x = 0
+            obj.accel_y = 0
     def check_events(self, event):
         #pressed = pygame.mouse.get_pressed()
         #pos = pygame.mouse.get_pos()
@@ -18,15 +25,37 @@ class Game_logic:
             if event.button == 1:
                 self.calc_velocity_vector(event.pos)
 
-    def do_tick_logic(self):
-        self.change_velocity()
-        self.move_objects()
+
 
     def change_velocity(self):
         pass
 
-    def gravitate(self, first_obj, second_obj):
-        pass
+    def gravitate(self, obj):
+
+        obj.accel_x = 0.0
+        obj.accel_y = 0.0
+        for gravyBody in self.objects:
+
+            dxsh = (obj.x - gravyBody.x)
+            dysh = (obj.y - gravyBody.y)
+            rsh = math.sqrt(dxsh ** 2 + dysh ** 2)
+            obj.accel_x -= gravyBody.mass * G * dxsh / rsh ** 3
+            obj.accel_y -= gravyBody.mass * G * dysh / rsh ** 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def check_collisions(self):
         pass
@@ -45,5 +74,14 @@ class Game_logic:
 
     def move_objects(self):
         for obj in self.objects + self.ships:
-            obj.x += obj.velocity_x
-            obj.y += obj.velocity_y
+            obj.x += obj.velocity_x * self.deltaTime + obj.accel_x * self.deltaTime ** 2 / 2
+            obj.y += obj.velocity_y * self.deltaTime + obj.accel_y * self.deltaTime ** 2 / 2
+
+            obj.velocity_x += obj.accel_x
+            obj.velocity_y += obj.accel_y
+
+    def do_tick_logic(self):
+        self.change_velocity()
+        self.move_objects()
+        self.gravitate(self.ship)
+        self.move_objects()
