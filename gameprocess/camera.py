@@ -7,9 +7,12 @@ class Camera:
         self.CENTER_X = window_center[0]
         self.CENTER_Y = window_center[1]
 
-        self.zoom = 1.0
-        self.zoom_out_factor = 1 - 0.03
-        self.zoom_in_factor = 1 + 0.03
+        #self.zoom = 1.0
+
+        self.zoom = 1 * 10 ** - 6 # так уж вышло
+
+        self.zoom_out_factor = 1 - 0.1
+        self.zoom_in_factor = 1 + 0.1
 
         self.cam_mode = 0
         self.level_objects = game_loop.current_level.level_objects
@@ -28,7 +31,10 @@ class Camera:
             x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
             y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
             obj.rect = obj.image.get_rect(center=(x,y))
+
+            pygame.draw.circle(window, (100, 250, 250), (x, y), 3)
             window.blit(obj.image, obj.rect)
+
 
     def check_events(self, event=None):
         if event is not None:
@@ -62,29 +68,32 @@ class Camera:
         self.free_cam_y = 0
 
     def zoom_out(self):
-        if self.zoom > 0.03:
+        if self.zoom > 0.0:
             self.zoom *= self.zoom_out_factor
             for obj in self.level_objects:
                 obj.image_width *= self.zoom_out_factor
                 obj.image_height *= self.zoom_out_factor
                 obj.scale_image()
 
+                #print(f'zoom is {self.zoom}')
+
     def zoom_in(self):
-        if self.zoom < 5:
+        if self.zoom < 5 * 10 ** - 4:
             self.zoom *= self.zoom_in_factor
             for obj in self.level_objects:
                 obj.image_width *= self.zoom_in_factor
                 obj.image_height *= self.zoom_in_factor
                 obj.scale_image()
+                #print(f'zoom is {self.zoom}')
 
     def _move_right(self):
-        self.free_cam_x -= 10
+        self.free_cam_x -= 1 / self.zoom
 
     def _move_left(self):
-        self.free_cam_x += 10
+        self.free_cam_x += 1 / self.zoom
 
     def _move_up(self):
-        self.free_cam_y += 10
+        self.free_cam_y += 1 / self.zoom
 
     def _move_down(self):
-        self.free_cam_y -= 10
+        self.free_cam_y -= 1 / self.zoom

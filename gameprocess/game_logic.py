@@ -2,7 +2,7 @@ import pygame
 from config import *
 import math
 
-G = 0.2
+
 
 class Game_logic:
 
@@ -12,11 +12,16 @@ class Game_logic:
         self.ship = level_ships[0]
         self.window_center_x = resolution_x // 2
         self.window_center_y = resolution_y // 2
-        self.deltaTime = 1
+
+        self.deltaTime = 1 # секунд за физический тик
+        self.physticks = 60 # физических тиков в кадре
+
+        self.gravitationalConstant = 6.6743 * 10 ** -11
 
         for obj in (self.objects + self.ships):
             obj.accel_x = 0
             obj.accel_y = 0
+
     def check_events(self, event):
         #pressed = pygame.mouse.get_pressed()
         #pos = pygame.mouse.get_pos()
@@ -39,23 +44,8 @@ class Game_logic:
             dxsh = (obj.x - gravyBody.x)
             dysh = (obj.y - gravyBody.y)
             rsh = math.sqrt(dxsh ** 2 + dysh ** 2)
-            obj.accel_x -= gravyBody.mass * G * dxsh / rsh ** 3
-            obj.accel_y -= gravyBody.mass * G * dysh / rsh ** 3
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            obj.accel_x -= gravyBody.mass * self.gravitationalConstant * dxsh / rsh ** 3
+            obj.accel_y -= gravyBody.mass * self.gravitationalConstant * dysh / rsh ** 3
 
     def check_collisions(self):
         pass
@@ -64,10 +54,11 @@ class Game_logic:
         x = self.window_center_x - mouse_target[0]
         y = self.window_center_y - mouse_target[1]
         #k = (x**2 + y**2)**0.5 / self.ship.thrust
-        k = 100 / self.ship.thrust # пока не нормируем
+        k = 1 / self.ship.thrust * self.physticks * self.deltaTime # пока не нормируем
+        print('poof')
         try:
-            self.ship.velocity_x -= x / k
-            self.ship.velocity_y -= y / k
+            self.ship.velocity_x -= x / k * self.deltaTime
+            self.ship.velocity_y -= y / k * self.deltaTime
         except:
             raise ZeroDivisionError
 
@@ -77,11 +68,12 @@ class Game_logic:
             obj.x += obj.velocity_x * self.deltaTime + obj.accel_x * self.deltaTime ** 2 / 2
             obj.y += obj.velocity_y * self.deltaTime + obj.accel_y * self.deltaTime ** 2 / 2
 
-            obj.velocity_x += obj.accel_x
-            obj.velocity_y += obj.accel_y
+            obj.velocity_x += float(obj.accel_x) * self.deltaTime
+            obj.velocity_y += float(obj.accel_y) * self.deltaTime
 
     def do_tick_logic(self):
         self.change_velocity()
         self.move_objects()
-        self.gravitate(self.ship)
-        self.move_objects()
+        for i in range(self.physticks):
+            self.gravitate(self.ship)
+            self.move_objects()

@@ -2,7 +2,7 @@ import sqlite3
 from game_init import imgload
 import pygame
 
-
+maxwidth = 2000 # чтобы не переполнять память
 class Level:
 
     def __init__(self, level_number):
@@ -53,21 +53,21 @@ class Grav_object(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image_data = imgload(params['image'])
         self.image = self.image_data
-        self.image_width = params['img_width']
-        self.image_height = params['img_height']
+        self.image_width = params['img_width'] / 10
+        self.image_height = params['img_height'] / 10
         self.scale_image()
 
         self.x = params['x']
         self.y = params['y']
         self.name = params['name']
-        self.velocity_x = 0 # Для тестов со статическими планетами
-        self.velocity_y = 0
-        # self.velocity_x = params['velocity_x']
-        # self.velocity_y = params['velocity_y']
+        #self.velocity_x = 0 # Для тестов со статическими планетами
+        #self.velocity_y = 0
+        self.velocity_x = float(params['velocity_x'])
+        self.velocity_y = float(params['velocity_y'])
         self.color = params['color']
 
     def scale_image(self):
-        self.image = pygame.transform.smoothscale(self.image_data, (self.image_width, self.image_height))
+        self.image = pygame.transform.smoothscale(self.image_data, (min(maxwidth, self.image_width), min(maxwidth, self.image_height)))
 
 
 class Planet(Grav_object):
@@ -91,7 +91,7 @@ class Ship(Grav_object):
         self.thrust = params['engine_thrust']
         self.specific_impulse = params['engine_specific_impulse']
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
-        self.thrust /= 100000
+        self.thrust /= 1000
 
 
 class Pointer(pygame.sprite.Sprite):
