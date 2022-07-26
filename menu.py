@@ -74,7 +74,9 @@ class Game(Menu):
     def draw_screen(self):
         self.__draw_background()
         self.game_process.camera.draw_level_objects()
+
         self.__draw_static_pics()
+        self.game_process.camera.draw_level_radius()
         manager.draw_ui(window)
         pygame.display.update()
 
