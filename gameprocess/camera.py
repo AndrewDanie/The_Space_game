@@ -24,15 +24,19 @@ class Camera:
         self.focus_x = self.focus_ship.x
         self.focus_y = self.focus_ship.y
         self.focus_to_the_ship()
+        #self.coordinates_on_screen(self.level_ships[0])
+
 
     def draw_level_objects(self):
+
         for obj in (self.level_objects + self.level_ships):
             if self.cam_mode == 0:
                 self.focus_x = self.focus_ship.x
                 self.focus_y = self.focus_ship.y
-            x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
-            y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
-            obj.rect = obj.image.get_rect(center=(x,y))
+            self.cam_x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
+            self.cam_y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
+
+            obj.rect = obj.image.get_rect(center=(self.cam_x, self.cam_y))
             window.blit(obj.image, obj.rect)
 
 

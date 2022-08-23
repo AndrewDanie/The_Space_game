@@ -66,6 +66,9 @@ class Grav_object(pygame.sprite.Sprite):
         self.velocity_y = float(params['velocity_y'])
         self.color = params['color']
 
+        self.cam_x = 0 # - костыль для транслирования положения на экране в gamelogic
+        self.cam_y = 0
+
     def scale_image(self):
         self.image = pygame.transform.smoothscale(self.image_data, (min(maxwidth, self.image_width), min(maxwidth, self.image_height)))
 
