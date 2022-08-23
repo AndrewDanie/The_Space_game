@@ -13,8 +13,11 @@ class Game_logic:
         self.window_center_x = resolution_x // 2
         self.window_center_y = resolution_y // 2
 
-        self.deltaTime = 1 # секунд за физический тик
-        self.physticks = 60 # физических тиков в кадре
+        self.deltaTime0 = 1 # секунд за физический тик
+        self.physticks0 = 60 # физических тиков в кадре
+
+        self.deltaTime = self.deltaTime0  # секунд за физический тик
+        self.physticks = self.physticks0  # физических тиков в кадре
 
         self.gravitationalConstant = 6.6743 * 10 ** -11
 
@@ -23,17 +26,40 @@ class Game_logic:
             obj.accel_y = 0
 
     def check_events(self, event):
-        #pressed = pygame.mouse.get_pressed()
-        #pos = pygame.mouse.get_pos()
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                self.calc_velocity_vector(event.pos)
 
 
-
-    def change_velocity(self):
         pass
+
+
+    def game_logic_control(self):
+        pressed = pygame.mouse.get_pressed()
+        keypressed = pygame.key.get_pressed()
+        mouse_position = pygame.mouse.get_pos()
+
+        print(pressed, mouse_position)
+
+        if pressed[0]:
+            self.calc_velocity_vector(mouse_position)
+
+        if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+            self.deltaTime = self.deltaTime0 * 1  # секунд за физический тик
+            self.physticks = self.physticks0 * 10  # физических тиков в кадре
+        else:
+            self.deltaTime = self.deltaTime0  # секунд за физический тик
+            self.physticks = self.physticks0  # физических тиков в кадре
+
+
+        shipaccel = 10
+        timemult =self.physticks * self.deltaTime
+
+        if pygame.key.get_pressed()[pygame.K_a]:
+            self.ship.velocity_x -= shipaccel * timemult
+        if pygame.key.get_pressed()[pygame.K_d]:
+            self.ship.velocity_x += shipaccel * timemult
+        if pygame.key.get_pressed()[pygame.K_w]:
+            self.ship.velocity_y -= shipaccel * timemult
+        if pygame.key.get_pressed()[pygame.K_s]:
+            self.ship.velocity_y += shipaccel * timemult
 
     def gravitate(self, obj):
 
@@ -51,6 +77,7 @@ class Game_logic:
         pass
 
     def calc_velocity_vector(self, mouse_target):
+
         x = self.window_center_x - mouse_target[0]
         y = self.window_center_y - mouse_target[1]
         #k = (x**2 + y**2)**0.5 / self.ship.thrust
@@ -63,17 +90,22 @@ class Game_logic:
             raise ZeroDivisionError
 
 
+
+
     def move_objects(self):
         for obj in self.objects + self.ships:
-            obj.x += obj.velocity_x * self.deltaTime + obj.accel_x * self.deltaTime ** 2 / 2
-            obj.y += obj.velocity_y * self.deltaTime + obj.accel_y * self.deltaTime ** 2 / 2
+            obj.x += obj.velocity_x * self.deltaTime + obj.accel_x * (self.deltaTime ** 2) / 2
+            obj.y += obj.velocity_y * self.deltaTime + obj.accel_y * (self.deltaTime ** 2) / 2
 
             obj.velocity_x += float(obj.accel_x) * self.deltaTime
             obj.velocity_y += float(obj.accel_y) * self.deltaTime
 
     def do_tick_logic(self):
-        self.change_velocity()
+        self.game_logic_control()
+        #self.change_velocity()
         self.move_objects()
+
         for i in range(self.physticks):
             self.gravitate(self.ship)
             self.move_objects()
+

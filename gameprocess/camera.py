@@ -13,8 +13,8 @@ class Camera:
 
         self.zoom = 1 * 10 ** - 6 # пикселей в метре
 
-        self.zoom_out_factor = 1 - 0.1
-        self.zoom_in_factor = 1 + 0.1
+        self.zoom_out_factor = 1 - 0.2
+        self.zoom_in_factor = 1 + 0.2
 
         self.cam_mode = 0
         self.level_objects = game_loop.current_level.level_objects
