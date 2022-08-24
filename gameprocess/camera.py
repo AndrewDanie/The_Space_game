@@ -9,6 +9,9 @@ class Camera:
         self.CENTER_X = window_center[0]
         self.CENTER_Y = window_center[1]
 
+        self.height = pygame.display.Info().current_h
+        self.width = pygame.display.Info().current_w # высота и ширина экрана. Если будет возможность менять разрешение, то понадобится
+
         #self.zoom = 1.0
 
         self.zoom = 1 * 10 ** - 6 # пикселей в метре
@@ -85,6 +88,24 @@ class Camera:
                 if pygame.key.get_pressed()[pygame.K_DOWN]:
                     self._move_down()
 
+        ####################################################
+        heighzone = 20
+        widthzone = 50
+        mouse_position = pygame.mouse.get_pos()
+        if self.cam_mode == 1:
+            if mouse_position[0] < widthzone:
+                self._move_left()
+            if mouse_position[0] > self.width - widthzone:
+                self._move_right()
+            if mouse_position[1] < heighzone:
+                self._move_up()
+            if mouse_position[1] > self.height - heighzone:
+                self._move_down()
+        ########################## Сдвиг камеры с помощью мышки у края экрана
+
+
+
+
     def focus_to_the_ship(self):
         self.free_cam_x = 0
         self.free_cam_y = 0
@@ -107,6 +128,7 @@ class Camera:
                 obj.image_height *= self.zoom_in_factor
                 obj.scale_image()
                 #print(f'zoom is {self.zoom}')
+                #print(pygame.display.Info().current_h)
 
     def _move_right(self):
         self.free_cam_x -= camera_speed / self.zoom

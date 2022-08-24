@@ -48,6 +48,7 @@ class Game(Menu):
         while self.F_current_loop_running:
             time_delta = clock.tick(FPS) / 1000.0
             self.check_events()
+
             if not(self.F_pause):
                 self.game_process.logic.do_tick_logic()
             self.draw_screen()
@@ -73,6 +74,7 @@ class Game(Menu):
 
     def draw_screen(self):
         self.__draw_background()
+
         self.game_process.camera.draw_level_objects()
 
         self.__draw_static_pics()
