@@ -68,6 +68,7 @@ class Grav_object(pygame.sprite.Sprite):
         self.velocity_x = float(params['velocity_x'])
         self.velocity_y = float(params['velocity_y'])
         self.color = params['color']
+        self.collided = False
 
         self.cam_x = 0 # - костыль для транслирования положения на экране в gamelogic
         self.cam_y = 0

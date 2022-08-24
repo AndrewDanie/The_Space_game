@@ -52,8 +52,10 @@ class Camera:
                 self.focus_y = self.focus_ship.y
             x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
             y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
-            #if (obj.x - self.focus_ship.x)
-            pygame.draw.circle(window, (255, 255, 255), (x, y), max(3, obj.radius * self.zoom), 2)
+            if not obj.collided:
+                pygame.draw.circle(window, (255, 255, 255), (x, y), max(3, obj.radius * self.zoom), 2)
+            else:
+                pygame.draw.circle(window, (255, 0, 0), (x, y), max(3, obj.radius * self.zoom), 10) #
             #window.blit(obj.image, obj.rect)
 
     def check_events(self, event=None):
@@ -117,3 +119,4 @@ class Camera:
 
     def _move_down(self):
         self.free_cam_y -= camera_speed  / self.zoom
+

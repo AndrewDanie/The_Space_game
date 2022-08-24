@@ -10,7 +10,7 @@ class Game_logic:
     def __init__(self, level_objects, level_ships):
         self.objects = level_objects
         self.ships = level_ships
-        self.ship = level_ships[0]
+        self.focus_ship = level_ships[0]
         self.window_center_x = resolution_x // 2
         self.window_center_y = resolution_y // 2
 
@@ -48,8 +48,8 @@ class Game_logic:
 
         if pressed[0]:
             #self.calc_velocity_vector(mouse_position)
-            axtry[0] = pygame.mouse.get_pos()[0] - self.ship.cam_x
-            axtry[1] = pygame.mouse.get_pos()[1] - self.ship.cam_y
+            axtry[0] = pygame.mouse.get_pos()[0] - self.focus_ship.cam_x
+            axtry[1] = pygame.mouse.get_pos()[1] - self.focus_ship.cam_y
 
         #print(self.ship.cam_x, ' ', self.ship.cam_y)
         #print(mouse_position)
@@ -70,17 +70,24 @@ class Game_logic:
         if axtry != [0, 0]:
 
 
-            self.ship.angle =( - math.atan2( axtry[1], axtry[0]) * 180 / 3.14 + 180) // 1
-            self.ship.accelerating = True
-            self.ship.velocity_x += shipaccel * timemult * axtry[0] / math.sqrt(axtry[0] ** 2 + axtry[1] ** 2)
-            self.ship.velocity_y += shipaccel * timemult * axtry[1] / math.sqrt(axtry[0] ** 2 + axtry[1] ** 2)
+            self.focus_ship.angle =( - math.atan2( axtry[1], axtry[0]) * 180 / 3.14 + 180) // 1
+            self.focus_ship.accelerating = True
+            self.focus_ship.velocity_x += shipaccel * timemult * axtry[0] / math.sqrt(axtry[0] ** 2 + axtry[1] ** 2)
+            self.focus_ship.velocity_y += shipaccel * timemult * axtry[1] / math.sqrt(axtry[0] ** 2 + axtry[1] ** 2)
         else:
-            self.ship.angle = (180 - math.atan2(pygame.mouse.get_pos()[1] - self.ship.cam_y,
-                                               pygame.mouse.get_pos()[0] - self.ship.cam_x) * 180 / 3.14) // 1
-            self.ship.accelerating = False
+            self.focus_ship.angle = (180 - math.atan2(pygame.mouse.get_pos()[1] - self.focus_ship.cam_y,
+                                               pygame.mouse.get_pos()[0] - self.focus_ship.cam_x) * 180 / 3.14) // 1
+            self.focus_ship.accelerating = False
 
     def check_collisions(self):
-        pass
+        for obj in self.objects:
+            if ((obj.x - self.focus_ship.x) ** 2 +
+                    (obj.y - self.focus_ship.y) ** 2 < obj.radius ** 2):
+                obj.collided = True
+                self.focus_ship.collided = True
+            else:
+                obj.collided = False
+                self.focus_ship.collided = False
 
     def calc_velocity_vector(self, mouse_target):
 
@@ -88,11 +95,11 @@ class Game_logic:
         x = self.window_center_x - mouse_target[0]
         y = self.window_center_y - mouse_target[1]
         #k = (x**2 + y**2)**0.5 / self.ship.thrust
-        k = 1 / self.ship.thrust # пока не нормируем
+        k = 1 / self.focus_ship.thrust # пока не нормируем
         print('poof')
         try:
-            self.ship.velocity_x -= x / k * timemult
-            self.ship.velocity_y -= y / k * timemult
+            self.focus_ship.velocity_x -= x / k * timemult
+            self.focus_ship.velocity_y -= y / k * timemult
         except:
             raise ZeroDivisionError
 
@@ -145,13 +152,7 @@ class Game_logic:
 
     def do_tick_logic(self):
         self.game_logic_control()
-        #self.change_velocity()
-
         self.gravitational_move()
+        self.check_collisions()
 
-        #print(Camera.coordinates_on_screen(self.ship))
-
-        #for i in range(self.physticks):
-        #    self.gravitate(self.ship)
-        #    self.move_objects()
 
