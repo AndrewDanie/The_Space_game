@@ -70,12 +70,13 @@ class Game_logic:
         if axtry != [0, 0]:
 
 
-            self.ship.angle = math.atan2(axtry[1], axtry[0])
+            self.ship.angle =( - math.atan2( axtry[1], axtry[0]) * 180 / 3.14 + 180) // 1
             self.ship.accelerating = True
             self.ship.velocity_x += shipaccel * timemult * axtry[0] / math.sqrt(axtry[0] ** 2 + axtry[1] ** 2)
             self.ship.velocity_y += shipaccel * timemult * axtry[1] / math.sqrt(axtry[0] ** 2 + axtry[1] ** 2)
         else:
-            self.ship.angle = math.atan2(pygame.mouse.get_pos()[0] - self.ship.cam_x, pygame.mouse.get_pos()[0] - self.ship.cam_y)
+            self.ship.angle = (180 - math.atan2(pygame.mouse.get_pos()[1] - self.ship.cam_y,
+                                               pygame.mouse.get_pos()[0] - self.ship.cam_x) * 180 / 3.14) // 1
             self.ship.accelerating = False
 
     def check_collisions(self):

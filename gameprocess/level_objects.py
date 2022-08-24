@@ -53,10 +53,13 @@ class Grav_object(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image_data = imgload(params['image'])
         self.image = self.image_data
+        self.scaled_image = self.image_data
+        self.rot_image = self.image_data
         self.image_width = params['img_width'] / 10
         self.image_height = params['img_height'] / 10
         self.scale_image()
-
+        self.angle = 0
+        self.last_angle = self.angle
         self.x = params['x']
         self.y = params['y']
         self.name = params['name']
@@ -70,8 +73,15 @@ class Grav_object(pygame.sprite.Sprite):
         self.cam_y = 0
 
     def scale_image(self):
-        self.image = pygame.transform.smoothscale(self.image_data, (min(maxwidth, self.image_width), min(maxwidth, self.image_height)))
+        self.scaled_image = pygame.transform.smoothscale(self.image_data, (min(maxwidth, self.image_width), min(maxwidth, self.image_height)))
+        self.image = self.scaled_image
 
+    def rotate_image(self):
+        if self.angle != self.last_angle:
+            self.image = pygame.transform.rotate(self.scaled_image, self.angle)
+            self.last_angle = self.angle
+       # else:
+      #      self.image = self.scaled_image
 
 class Planet(Grav_object):
 
@@ -95,7 +105,7 @@ class Ship(Grav_object):
         self.specific_impulse = params['engine_specific_impulse']
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
         self.thrust /= 1000
-        self.angle = 0
+
         self.accelerating = False
 
 

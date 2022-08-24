@@ -34,11 +34,13 @@ class Camera:
                 self.focus_x = self.focus_ship.x
                 self.focus_y = self.focus_ship.y
             #print("center = " + str(self.CENTER_X) + str(self.CENTER_Y))
-            obj.cam_x =self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
-            obj.cam_y =self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
+            obj.cam_x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
+            obj.cam_y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
 
+            obj.rotate_image()
             obj.rect = obj.image.get_rect(center=(obj.cam_x, obj.cam_y))
             window.blit(obj.image, obj.rect)
+
 
 
 
@@ -50,7 +52,7 @@ class Camera:
                 self.focus_y = self.focus_ship.y
             x = self.CENTER_X + (self.free_cam_x + obj.x - self.focus_x) * self.zoom
             y = self.CENTER_Y + (self.free_cam_y + obj.y - self.focus_y) * self.zoom
-
+            #if (obj.x - self.focus_ship.x)
             pygame.draw.circle(window, (255, 255, 255), (x, y), max(3, obj.radius * self.zoom), 2)
             #window.blit(obj.image, obj.rect)
 
@@ -105,10 +107,10 @@ class Camera:
                 #print(f'zoom is {self.zoom}')
 
     def _move_right(self):
-        self.free_cam_x -= camera_speed  / self.zoom
+        self.free_cam_x -= camera_speed / self.zoom
 
     def _move_left(self):
-        self.free_cam_x += camera_speed  / self.zoom
+        self.free_cam_x += camera_speed / self.zoom
 
     def _move_up(self):
         self.free_cam_y += camera_speed  / self.zoom
