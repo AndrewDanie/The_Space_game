@@ -95,6 +95,8 @@ class Ship(Grav_object):
         self.specific_impulse = params['engine_specific_impulse']
         self.acceleration = self.thrust / (self.mass + self.fuel_mass)
         self.thrust /= 1000
+        self.angle = 0
+        self.accelerating = False
 
 
 class Pointer(pygame.sprite.Sprite):
