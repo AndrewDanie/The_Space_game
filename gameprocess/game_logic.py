@@ -1,7 +1,7 @@
 import pygame
 from config import *
 import math
-
+import datetime
 from gameprocess.camera import Camera # имеет ли смысл отсюда повторно вызывать?
 
 
@@ -13,12 +13,13 @@ class Game_logic:
         self.focus_ship = level_ships[0]
         self.window_center_x = resolution_x // 2
         self.window_center_y = resolution_y // 2
+        self.time = 0                               # - время с начала уровня
 
-        self.deltaTime0 = 10 # секунд за физический тик
-        self.physticks0 = 6 # физических тиков в кадре
+        self.deltaTime0 = 10                        # секунд за физический тик
+        self.physticks0 = 6                         # физических тиков в кадре
 
-        self.deltaTime = self.deltaTime0  # секунд за физический тик
-        self.physticks = self.physticks0  # физических тиков в кадре
+        self.deltaTime = self.deltaTime0            # секунд за физический тик
+        self.physticks = self.physticks0            # физических тиков в кадре
 
         self.gravitationalConstant = 6.6743 * 10 ** -11
 
@@ -31,6 +32,12 @@ class Game_logic:
 
         pass
 
+    def timer(self):
+        self.time += self.physticks * self.deltaTime
+
+        timestring = str(datetime.timedelta(seconds=self.time))
+        #print(timestring)
+
 
     def game_logic_control(self):
         pressed = pygame.mouse.get_pressed()
@@ -38,8 +45,12 @@ class Game_logic:
         mouse_position = pygame.mouse.get_pos()
 
         if pygame.key.get_pressed()[pygame.K_LSHIFT]:
-            self.deltaTime = self.deltaTime0 * 1  # секунд за физический тик с ускорением
-            self.physticks = self.physticks0 * 10  # физических тиков в кадре с ускорением
+            self.deltaTime = self.deltaTime0 * 10
+            self.physticks = self.physticks0 * 1  # физических тиков в кадре с ускорением
+
+        elif pygame.key.get_pressed()[pygame.K_LCTRL]:
+            self.deltaTime = self.deltaTime0 / 10   # секунд за физический тик с замедлением
+            self.physticks = self.physticks0   # физических тиков в кадре с замедлением
         else:
             self.deltaTime = self.deltaTime0  # секунд за физический тик  стандартно
             self.physticks = self.physticks0  # физических тиков в кадре стандартно
@@ -113,6 +124,8 @@ class Game_logic:
 
                 obj.velocity_x += obj.accel_x * self.deltaTime
                 obj.velocity_y += obj.accel_y * self.deltaTime
+       # print(self.deltaTime)
+       # print(self.physticks)
 
 
 
@@ -120,3 +133,4 @@ class Game_logic:
         self.game_logic_control()
         self.gravitational_move()
         self.check_collisions()
+        self.timer()
